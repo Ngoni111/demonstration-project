@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
@@ -26,14 +27,14 @@ public class Item {
 	@Size(min = 1, message = "Model is empty, please fill in.")
 	private String model;
 	
-	@Past(message="The Year of manufacture should be in the future")
+	@Past(message="The Year of manufacture should be in the Past")
 	private LocalDate yearOfManufacture;
 	
 	@Size(min = 1, message = "Country is blank, please fill in..")
 	private String country;
 	
-	@Size(min = 1, message = "Consumption is empty, please fill in.")
-	private Long consumption;
+	@NotNull(message = "Consumption should not be left blank")
+	private Integer consumption;
 	
 	
 	
@@ -41,8 +42,7 @@ public class Item {
 	public Item(Integer id, @Size(min = 3, message = "Make is empty, please  fill in.") String make,
 			@Size(min = 1, message = "Model is empty, please fill in.") String model,
 			@Past(message = "The Year of manufacture should be in the future") LocalDate yearOfManufacture,
-			@Size(min = 1, message = "Country is blank, please fill in..") String country,
-			@Size(min = 1, message = "Consumption is empty, please fill in.") Long consumption) {
+			@Size(min = 1, message = "Country is blank, please fill in..") String country, Integer consumption) {
 		super();
 		this.id = id;
 		this.make = make;
@@ -92,11 +92,11 @@ public class Item {
 		this.country = country;
 	}
 
-	public Long getConsumption() {
+	public Integer getConsumption() {
 		return consumption;
 	}
 
-	public void setConsumption(Long consumption) {
+	public void setConsumption(Integer consumption) {
 		this.consumption = consumption;
 	}
 
